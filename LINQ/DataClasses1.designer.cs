@@ -23,55 +23,63 @@ namespace LINQ
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CountriesV2")]
-	public partial class DataClasses2DataContext : System.Data.Linq.DataContext
+	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
     #region Определения метода расширяемости
     partial void OnCreated();
-    partial void InsertBigSities(BigSities instance);
-    partial void UpdateBigSities(BigSities instance);
-    partial void DeleteBigSities(BigSities instance);
-    partial void InsertPartsOfTheWorld(PartsOfTheWorld instance);
-    partial void UpdatePartsOfTheWorld(PartsOfTheWorld instance);
-    partial void DeletePartsOfTheWorld(PartsOfTheWorld instance);
-    partial void InsertCountry(Country instance);
-    partial void UpdateCountry(Country instance);
-    partial void DeleteCountry(Country instance);
     partial void InsertCapitalsOfCountries(CapitalsOfCountries instance);
     partial void UpdateCapitalsOfCountries(CapitalsOfCountries instance);
     partial void DeleteCapitalsOfCountries(CapitalsOfCountries instance);
+    partial void InsertBigSities(BigSities instance);
+    partial void UpdateBigSities(BigSities instance);
+    partial void DeleteBigSities(BigSities instance);
+    partial void InsertCountry(Country instance);
+    partial void UpdateCountry(Country instance);
+    partial void DeleteCountry(Country instance);
+    partial void InsertPartsOfTheWorld(PartsOfTheWorld instance);
+    partial void UpdatePartsOfTheWorld(PartsOfTheWorld instance);
+    partial void DeletePartsOfTheWorld(PartsOfTheWorld instance);
     #endregion
 		
-		public DataClasses2DataContext() : 
+		public DataClasses1DataContext() : 
 				base(global::LINQ.Properties.Settings.Default.CountriesV2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses2DataContext(string connection) : 
+		public DataClasses1DataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses2DataContext(System.Data.IDbConnection connection) : 
+		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses2DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses2DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<CapitalsOfCountries> CapitalsOfCountries
+		{
+			get
+			{
+				return this.GetTable<CapitalsOfCountries>();
+			}
 		}
 		
 		public System.Data.Linq.Table<BigSities> BigSities
@@ -79,14 +87,6 @@ namespace LINQ
 			get
 			{
 				return this.GetTable<BigSities>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PartsOfTheWorld> PartsOfTheWorld
-		{
-			get
-			{
-				return this.GetTable<PartsOfTheWorld>();
 			}
 		}
 		
@@ -98,11 +98,203 @@ namespace LINQ
 			}
 		}
 		
-		public System.Data.Linq.Table<CapitalsOfCountries> CapitalsOfCountries
+		public System.Data.Linq.Table<PartsOfTheWorld> PartsOfTheWorld
 		{
 			get
 			{
-				return this.GetTable<CapitalsOfCountries>();
+				return this.GetTable<PartsOfTheWorld>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CapitalsOfCountries")]
+	public partial class CapitalsOfCountries : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _SityId;
+		
+		private System.Nullable<int> _CountryId;
+		
+		private EntityRef<BigSities> _BigSities;
+		
+		private EntityRef<Country> _Country;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnSityIdChanging(System.Nullable<int> value);
+    partial void OnSityIdChanged();
+    partial void OnCountryIdChanging(System.Nullable<int> value);
+    partial void OnCountryIdChanged();
+    #endregion
+		
+		public CapitalsOfCountries()
+		{
+			this._BigSities = default(EntityRef<BigSities>);
+			this._Country = default(EntityRef<Country>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SityId", DbType="Int")]
+		public System.Nullable<int> SityId
+		{
+			get
+			{
+				return this._SityId;
+			}
+			set
+			{
+				if ((this._SityId != value))
+				{
+					if (this._BigSities.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSityIdChanging(value);
+					this.SendPropertyChanging();
+					this._SityId = value;
+					this.SendPropertyChanged("SityId");
+					this.OnSityIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="Int")]
+		public System.Nullable<int> CountryId
+		{
+			get
+			{
+				return this._CountryId;
+			}
+			set
+			{
+				if ((this._CountryId != value))
+				{
+					if (this._Country.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCountryIdChanging(value);
+					this.SendPropertyChanging();
+					this._CountryId = value;
+					this.SendPropertyChanged("CountryId");
+					this.OnCountryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BigSities_CapitalsOfCountries", Storage="_BigSities", ThisKey="SityId", OtherKey="ID", IsForeignKey=true)]
+		public BigSities BigSities
+		{
+			get
+			{
+				return this._BigSities.Entity;
+			}
+			set
+			{
+				BigSities previousValue = this._BigSities.Entity;
+				if (((previousValue != value) 
+							|| (this._BigSities.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BigSities.Entity = null;
+						previousValue.CapitalsOfCountries.Remove(this);
+					}
+					this._BigSities.Entity = value;
+					if ((value != null))
+					{
+						value.CapitalsOfCountries.Add(this);
+						this._SityId = value.ID;
+					}
+					else
+					{
+						this._SityId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("BigSities");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CapitalsOfCountries", Storage="_Country", ThisKey="CountryId", OtherKey="ID", IsForeignKey=true)]
+		public Country Country
+		{
+			get
+			{
+				return this._Country.Entity;
+			}
+			set
+			{
+				Country previousValue = this._Country.Entity;
+				if (((previousValue != value) 
+							|| (this._Country.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Country.Entity = null;
+						previousValue.CapitalsOfCountries.Remove(this);
+					}
+					this._Country.Entity = value;
+					if ((value != null))
+					{
+						value.CapitalsOfCountries.Add(this);
+						this._CountryId = value.ID;
+					}
+					else
+					{
+						this._CountryId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Country");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -310,6 +502,261 @@ namespace LINQ
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Country")]
+	public partial class Country : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _PartOfTheWorldId;
+		
+		private string _Name;
+		
+		private int _TotalCountOfPersons;
+		
+		private int _SquareOfCountry;
+		
+		private EntitySet<CapitalsOfCountries> _CapitalsOfCountries;
+		
+		private EntitySet<BigSities> _BigSities;
+		
+		private EntityRef<PartsOfTheWorld> _PartsOfTheWorld;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPartOfTheWorldIdChanging(System.Nullable<int> value);
+    partial void OnPartOfTheWorldIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnTotalCountOfPersonsChanging(int value);
+    partial void OnTotalCountOfPersonsChanged();
+    partial void OnSquareOfCountryChanging(int value);
+    partial void OnSquareOfCountryChanged();
+    #endregion
+		
+		public Country()
+		{
+			this._CapitalsOfCountries = new EntitySet<CapitalsOfCountries>(new Action<CapitalsOfCountries>(this.attach_CapitalsOfCountries), new Action<CapitalsOfCountries>(this.detach_CapitalsOfCountries));
+			this._BigSities = new EntitySet<BigSities>(new Action<BigSities>(this.attach_BigSities), new Action<BigSities>(this.detach_BigSities));
+			this._PartsOfTheWorld = default(EntityRef<PartsOfTheWorld>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartOfTheWorldId", DbType="Int")]
+		public System.Nullable<int> PartOfTheWorldId
+		{
+			get
+			{
+				return this._PartOfTheWorldId;
+			}
+			set
+			{
+				if ((this._PartOfTheWorldId != value))
+				{
+					if (this._PartsOfTheWorld.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPartOfTheWorldIdChanging(value);
+					this.SendPropertyChanging();
+					this._PartOfTheWorldId = value;
+					this.SendPropertyChanged("PartOfTheWorldId");
+					this.OnPartOfTheWorldIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalCountOfPersons", DbType="Int NOT NULL")]
+		public int TotalCountOfPersons
+		{
+			get
+			{
+				return this._TotalCountOfPersons;
+			}
+			set
+			{
+				if ((this._TotalCountOfPersons != value))
+				{
+					this.OnTotalCountOfPersonsChanging(value);
+					this.SendPropertyChanging();
+					this._TotalCountOfPersons = value;
+					this.SendPropertyChanged("TotalCountOfPersons");
+					this.OnTotalCountOfPersonsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SquareOfCountry", DbType="Int NOT NULL")]
+		public int SquareOfCountry
+		{
+			get
+			{
+				return this._SquareOfCountry;
+			}
+			set
+			{
+				if ((this._SquareOfCountry != value))
+				{
+					this.OnSquareOfCountryChanging(value);
+					this.SendPropertyChanging();
+					this._SquareOfCountry = value;
+					this.SendPropertyChanged("SquareOfCountry");
+					this.OnSquareOfCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CapitalsOfCountries", Storage="_CapitalsOfCountries", ThisKey="ID", OtherKey="CountryId")]
+		public EntitySet<CapitalsOfCountries> CapitalsOfCountries
+		{
+			get
+			{
+				return this._CapitalsOfCountries;
+			}
+			set
+			{
+				this._CapitalsOfCountries.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_BigSities", Storage="_BigSities", ThisKey="ID", OtherKey="CountryId")]
+		public EntitySet<BigSities> BigSities
+		{
+			get
+			{
+				return this._BigSities;
+			}
+			set
+			{
+				this._BigSities.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PartsOfTheWorld_Country", Storage="_PartsOfTheWorld", ThisKey="PartOfTheWorldId", OtherKey="ID", IsForeignKey=true)]
+		public PartsOfTheWorld PartsOfTheWorld
+		{
+			get
+			{
+				return this._PartsOfTheWorld.Entity;
+			}
+			set
+			{
+				PartsOfTheWorld previousValue = this._PartsOfTheWorld.Entity;
+				if (((previousValue != value) 
+							|| (this._PartsOfTheWorld.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PartsOfTheWorld.Entity = null;
+						previousValue.Country.Remove(this);
+					}
+					this._PartsOfTheWorld.Entity = value;
+					if ((value != null))
+					{
+						value.Country.Add(this);
+						this._PartOfTheWorldId = value.ID;
+					}
+					else
+					{
+						this._PartOfTheWorldId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("PartsOfTheWorld");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CapitalsOfCountries(CapitalsOfCountries entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = this;
+		}
+		
+		private void detach_CapitalsOfCountries(CapitalsOfCountries entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = null;
+		}
+		
+		private void attach_BigSities(BigSities entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = this;
+		}
+		
+		private void detach_BigSities(BigSities entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PartsOfTheWorld")]
 	public partial class PartsOfTheWorld : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -421,453 +868,6 @@ namespace LINQ
 		{
 			this.SendPropertyChanging();
 			entity.PartsOfTheWorld = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Country")]
-	public partial class Country : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private System.Nullable<int> _PartOfTheWorldId;
-		
-		private string _Name;
-		
-		private int _TotalCountOfPersons;
-		
-		private int _SquareOfCountry;
-		
-		private EntitySet<BigSities> _BigSities;
-		
-		private EntitySet<CapitalsOfCountries> _CapitalsOfCountries;
-		
-		private EntityRef<PartsOfTheWorld> _PartsOfTheWorld;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnPartOfTheWorldIdChanging(System.Nullable<int> value);
-    partial void OnPartOfTheWorldIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnTotalCountOfPersonsChanging(int value);
-    partial void OnTotalCountOfPersonsChanged();
-    partial void OnSquareOfCountryChanging(int value);
-    partial void OnSquareOfCountryChanged();
-    #endregion
-		
-		public Country()
-		{
-			this._BigSities = new EntitySet<BigSities>(new Action<BigSities>(this.attach_BigSities), new Action<BigSities>(this.detach_BigSities));
-			this._CapitalsOfCountries = new EntitySet<CapitalsOfCountries>(new Action<CapitalsOfCountries>(this.attach_CapitalsOfCountries), new Action<CapitalsOfCountries>(this.detach_CapitalsOfCountries));
-			this._PartsOfTheWorld = default(EntityRef<PartsOfTheWorld>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartOfTheWorldId", DbType="Int")]
-		public System.Nullable<int> PartOfTheWorldId
-		{
-			get
-			{
-				return this._PartOfTheWorldId;
-			}
-			set
-			{
-				if ((this._PartOfTheWorldId != value))
-				{
-					if (this._PartsOfTheWorld.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPartOfTheWorldIdChanging(value);
-					this.SendPropertyChanging();
-					this._PartOfTheWorldId = value;
-					this.SendPropertyChanged("PartOfTheWorldId");
-					this.OnPartOfTheWorldIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalCountOfPersons", DbType="Int NOT NULL")]
-		public int TotalCountOfPersons
-		{
-			get
-			{
-				return this._TotalCountOfPersons;
-			}
-			set
-			{
-				if ((this._TotalCountOfPersons != value))
-				{
-					this.OnTotalCountOfPersonsChanging(value);
-					this.SendPropertyChanging();
-					this._TotalCountOfPersons = value;
-					this.SendPropertyChanged("TotalCountOfPersons");
-					this.OnTotalCountOfPersonsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SquareOfCountry", DbType="Int NOT NULL")]
-		public int SquareOfCountry
-		{
-			get
-			{
-				return this._SquareOfCountry;
-			}
-			set
-			{
-				if ((this._SquareOfCountry != value))
-				{
-					this.OnSquareOfCountryChanging(value);
-					this.SendPropertyChanging();
-					this._SquareOfCountry = value;
-					this.SendPropertyChanged("SquareOfCountry");
-					this.OnSquareOfCountryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_BigSities", Storage="_BigSities", ThisKey="ID", OtherKey="CountryId")]
-		public EntitySet<BigSities> BigSities
-		{
-			get
-			{
-				return this._BigSities;
-			}
-			set
-			{
-				this._BigSities.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CapitalsOfCountries", Storage="_CapitalsOfCountries", ThisKey="ID", OtherKey="CountryId")]
-		public EntitySet<CapitalsOfCountries> CapitalsOfCountries
-		{
-			get
-			{
-				return this._CapitalsOfCountries;
-			}
-			set
-			{
-				this._CapitalsOfCountries.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PartsOfTheWorld_Country", Storage="_PartsOfTheWorld", ThisKey="PartOfTheWorldId", OtherKey="ID", IsForeignKey=true)]
-		public PartsOfTheWorld PartsOfTheWorld
-		{
-			get
-			{
-				return this._PartsOfTheWorld.Entity;
-			}
-			set
-			{
-				PartsOfTheWorld previousValue = this._PartsOfTheWorld.Entity;
-				if (((previousValue != value) 
-							|| (this._PartsOfTheWorld.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PartsOfTheWorld.Entity = null;
-						previousValue.Country.Remove(this);
-					}
-					this._PartsOfTheWorld.Entity = value;
-					if ((value != null))
-					{
-						value.Country.Add(this);
-						this._PartOfTheWorldId = value.ID;
-					}
-					else
-					{
-						this._PartOfTheWorldId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("PartsOfTheWorld");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_BigSities(BigSities entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = this;
-		}
-		
-		private void detach_BigSities(BigSities entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = null;
-		}
-		
-		private void attach_CapitalsOfCountries(CapitalsOfCountries entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = this;
-		}
-		
-		private void detach_CapitalsOfCountries(CapitalsOfCountries entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CapitalsOfCountries")]
-	public partial class CapitalsOfCountries : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private System.Nullable<int> _SityId;
-		
-		private System.Nullable<int> _CountryId;
-		
-		private EntityRef<BigSities> _BigSities;
-		
-		private EntityRef<Country> _Country;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnSityIdChanging(System.Nullable<int> value);
-    partial void OnSityIdChanged();
-    partial void OnCountryIdChanging(System.Nullable<int> value);
-    partial void OnCountryIdChanged();
-    #endregion
-		
-		public CapitalsOfCountries()
-		{
-			this._BigSities = default(EntityRef<BigSities>);
-			this._Country = default(EntityRef<Country>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SityId", DbType="Int")]
-		public System.Nullable<int> SityId
-		{
-			get
-			{
-				return this._SityId;
-			}
-			set
-			{
-				if ((this._SityId != value))
-				{
-					if (this._BigSities.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSityIdChanging(value);
-					this.SendPropertyChanging();
-					this._SityId = value;
-					this.SendPropertyChanged("SityId");
-					this.OnSityIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="Int")]
-		public System.Nullable<int> CountryId
-		{
-			get
-			{
-				return this._CountryId;
-			}
-			set
-			{
-				if ((this._CountryId != value))
-				{
-					if (this._Country.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCountryIdChanging(value);
-					this.SendPropertyChanging();
-					this._CountryId = value;
-					this.SendPropertyChanged("CountryId");
-					this.OnCountryIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BigSities_CapitalsOfCountries", Storage="_BigSities", ThisKey="SityId", OtherKey="ID", IsForeignKey=true)]
-		public BigSities BigSities
-		{
-			get
-			{
-				return this._BigSities.Entity;
-			}
-			set
-			{
-				BigSities previousValue = this._BigSities.Entity;
-				if (((previousValue != value) 
-							|| (this._BigSities.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BigSities.Entity = null;
-						previousValue.CapitalsOfCountries.Remove(this);
-					}
-					this._BigSities.Entity = value;
-					if ((value != null))
-					{
-						value.CapitalsOfCountries.Add(this);
-						this._SityId = value.ID;
-					}
-					else
-					{
-						this._SityId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("BigSities");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_CapitalsOfCountries", Storage="_Country", ThisKey="CountryId", OtherKey="ID", IsForeignKey=true)]
-		public Country Country
-		{
-			get
-			{
-				return this._Country.Entity;
-			}
-			set
-			{
-				Country previousValue = this._Country.Entity;
-				if (((previousValue != value) 
-							|| (this._Country.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Country.Entity = null;
-						previousValue.CapitalsOfCountries.Remove(this);
-					}
-					this._Country.Entity = value;
-					if ((value != null))
-					{
-						value.CapitalsOfCountries.Add(this);
-						this._CountryId = value.ID;
-					}
-					else
-					{
-						this._CountryId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Country");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }
